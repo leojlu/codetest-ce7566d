@@ -1,0 +1,36 @@
+﻿<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<div class="row">
+    <div class="col-md-4" style="margin-top: 10px">
+        Please enter your string
+        <input type="text" id="input" />
+    </div>
+</div>
+<div class="row" style="word-wrap: break-word;">
+    <div class="col-md-4" id="result">
+    </div>
+</div>
+<script>
+    $("#input").on("change paste keyup", function () {
+        if ($(this).val() != "")
+        {
+            $.ajax({
+                type: "GET",
+                url: "/api/codetest?input=" + $(this).val(),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    if (data && data.length > 2){
+                        $("#result").html("10 Substring: " + data);
+                    }
+                    else {
+                        $("#result").html("");
+                    }
+                },
+                error: function (e) {
+                    
+                }
+            });
+        }
+        
+    });
+</script>
